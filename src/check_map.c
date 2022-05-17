@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:28:32 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 17:02:25 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:24:01 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,11 @@ int	check_extension(char **av)
 	i = 0;
 	len = ft_strlen(av[1]);
 	if (len < 5)
-	{
-		ft_putstr_fd("Error: Invalid file format\n", 2);
-		return (EXIT_FAILURE);
-	}
+		return (E_INV_FMT);
 	if ((ft_strncmp(".cub", &av[1][len - 4], 4) != 0)
 		|| av[1][len - 5] == '.' || av[1][len - 5] == '/'
 		|| av[1][len] != '\0')
-	{
-		ft_putstr_fd("Error: Invalid file format\n", 2);
-		return (EXIT_FAILURE);
-	}
+		return (E_INV_FMT);
 	return (EXIT_SUCCESS);
 }
 
@@ -93,3 +87,5 @@ void	get_map(t_data *data, char *av)
 	data->map = ft_split(line, '\n');
 	free(line);
 }
+
+

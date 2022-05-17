@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:36:28 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 15:55:57 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:19:38 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_err(enum e_errcode id)
 	size_t	i;
 
 	i = 0;
-	while (i < (sizeof(g_error) / sizeof(* g_error)))
+	while (i < (sizeof(g_error) / sizeof(*g_error)))
 	{
 		if (id == g_error[i].id)
 		{
