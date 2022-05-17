@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:17:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 15:57:08 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:21:43 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_error	t_error;
 
 enum e_errcode
 {
-	E_INV_FORMAT = 1,
+	E_INV_FMT = 1,
 	E_INIT_MAP,
 	E_OPEN_MAP,
 	E_CHAR_PATT,
@@ -69,6 +69,8 @@ typedef struct s_data
 	void		*win;
 	int			height;
 	int			width;
+	int			i;
+	int			j;
 	void		*wall;
 	void		*ground;
 	void		*player;
@@ -79,13 +81,13 @@ typedef struct s_data
 
 typedef struct s_error
 {
-	enum e_errcode		id;
-	char const			*err_msg;
+	enum e_errcode	id;
+	char			*err_msg;
 }				t_error;
 
 static t_error const	g_error[] = {
-{.id = E_INV_FORMAT, .err_msg = "Error\nInvalid file format\n"},
-{.id = E_INIT_MAP, .err_msg = "Error\nTroubles while reading or initializing Map\n"},
+{.id = E_INV_FMT, .err_msg = "Error\nInvalid file format or extension\n"},
+{.id = E_INIT_MAP, .err_msg = "Error\nTroubles while reading or init Map\n"},
 {.id = E_OPEN_MAP, .err_msg = "Error\nMap open\n"},
 {.id = E_CHAR_PATT, .err_msg = "Error\nFound an invalid char pattern\n"},
 {.id = E_SPAWN_ERR, .err_msg = "Error\nOnly one spawn please\n"},
@@ -114,5 +116,8 @@ void	get_map(t_data *data, char *av);
 void	print_err(enum e_errcode id);
 
 /*---------- C L E A N ----------*/
+
+void	free_map(t_data *data);
+void	free_data(t_data *data);
 
 #endif
