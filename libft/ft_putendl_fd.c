@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 16:53:17 by estoffel          #+#    #+#             */
-/*   Updated: 2021/07/29 18:13:19 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:08:56 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	if (s)
 	{
-		while (*s)
-			write(fd, s++, 1);
+		write(fd, s, ft_strlen(s));
 		write(fd, "\n", 1);
 	}
 }
