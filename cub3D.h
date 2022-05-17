@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:17:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/16 20:15:38 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:57:08 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,67 @@
 /*********************************/
 
 typedef struct s_data	t_data;
+typedef struct s_error	t_error;
+
+enum e_errcode
+{
+	E_INV_FORMAT = 1,
+	E_INIT_MAP,
+	E_OPEN_MAP,
+	E_CHAR_PATT,
+	E_SPAWN_ERR,
+};
 
 typedef struct s_data
 {
-	char	**map;
-	void	*mlx;
-	void	*win;
-	int		height;
-	int		width;
-	int		y;
-	int		x;
-	int		o;
-	void	*wall;
-	void	*ground;
-	void	*player;
-	int		pos_p_x;
-	int		pos_p_y;
-	int		orient_p;
+	char		**map;
+	void		*mlx;
+	void		*win;
+	int			height;
+	int			width;
+	void		*wall;
+	void		*ground;
+	void		*player;
+	double		pos_p_x;
+	double		pos_p_y;
+	double		orient_p;
 }				t_data;
+
+typedef struct s_error
+{
+	enum e_errcode		id;
+	char const			*err_msg;
+}				t_error;
+
+static t_error const	g_error[] = {
+{.id = E_INV_FORMAT, .err_msg = "Error\nInvalid file format\n"},
+{.id = E_INIT_MAP, .err_msg = "Error\nTroubles while reading or initializing Map\n"},
+{.id = E_OPEN_MAP, .err_msg = "Error\nMap open\n"},
+{.id = E_CHAR_PATT, .err_msg = "Error\nFound an invalid char pattern\n"},
+{.id = E_SPAWN_ERR, .err_msg = "Error\nOnly one spawn please\n"},
+};
 
 /*********************************/
 /*       F U N C T I O N S       */
 /*********************************/
 
+/*----------- I N I T -----------*/
+
+void	init_struct(t_data *data);
+
 /*-------- P A R S I N G --------*/
 
+char	*read_map(char *av);
+
+int		check_extension(char **av);
+
+void	get_map(t_data *data, char *av);
+
 /*--------- E V E N T S ---------*/
+
+/*---------- U T I L S ----------*/
+
+void	print_err(enum e_errcode id);
 
 /*---------- C L E A N ----------*/
 

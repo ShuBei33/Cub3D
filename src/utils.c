@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 16:38:05 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 17:03:09 by estoffel         ###   ########.fr       */
+/*   Created: 2022/05/16 22:36:28 by estoffel          #+#    #+#             */
+/*   Updated: 2022/05/17 15:55:57 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-#include <stdio.h>
 
-void	init_struct(t_data *data)
+void	print_err(enum e_errcode id)
 {
-	data->map = NULL;
-	
-}
+	size_t	i;
 
-int	main(int ac, char **av)
-{
-	t_data	data;
-
-	init_struct(&data);
-	if (ac != 2)
+	i = 0;
+	while (i < (sizeof(g_error) / sizeof(* g_error)))
 	{
-		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
-		return (0);
+		if (id == g_error[i].id)
+		{
+			ft_putstr_fd(g_error[i].err_msg, 2);
+			break ;
+		}
+		++i;
 	}
 }
