@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:28:32 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 18:24:01 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:39:23 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,34 @@ void	get_map(t_data *data, char *av)
 	free(line);
 }
 
+int	check_char(char *av)
+{
+	char	*line;
+	int		i;
 
+	line = read_map(av);
+	if (!line)
+		return (0);
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1' && line[i] != '0' && line[i] != 'N'
+			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E'
+			&& line[i] != ' ' && line[i] != '\n')
+			return (free(line), E_CHAR_PATT);
+		++i;
+	}
+	free(line);
+	return (EXIT_SUCCESS);
+}
+
+int	check_err(t_data *data, char *av)
+{
+	int	id;
+	
+	id = 0;
+	get_map(data, av);
+	
+	
+	
+}

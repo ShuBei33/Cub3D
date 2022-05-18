@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:38:05 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 17:58:51 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:38:53 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,7 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
 		return (0);
 	}
+	if (check_err(&data, av[1]) != 0)
+		return (free_map(&data), EXIT_FAILURE);
+	init_mlx(&data);
 }

@@ -6,11 +6,11 @@
 #    By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 16:27:08 by estoffel          #+#    #+#              #
-#    Updated: 2022/05/17 18:12:21 by estoffel         ###   ########.fr        #
+#    Updated: 2022/05/17 23:39:33 by estoffel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	cub3d
+NAME	=	cub3D
 
 CC		=	clang
 
