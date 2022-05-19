@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:28:32 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/18 00:39:23 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/20 01:27:06 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	*read_map(char *av)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		buf[bytes_read] = '\0';
+		if (ft_isprint(buf[bytes_read]) == 0)
+			return (NULL);
 		av = line;
 		line = ft_strjoin(line, buf);
 		free(av);
@@ -59,7 +61,7 @@ char	*read_map(char *av)
 	return (line);
 }
 
-void	get_map(t_data *data, char *av)
+int	get_map(t_data *data, char *av)
 {
 	char	*line;
 	int		i;
@@ -68,7 +70,7 @@ void	get_map(t_data *data, char *av)
 	if (!line)
 	{
 		data->map = NULL;
-		return ;
+		return (E_INIT_MAP);
 	}
 	i = 0;
 	while (line[i])
@@ -79,23 +81,26 @@ void	get_map(t_data *data, char *av)
 			{
 				data->map = NULL;
 				free(line);
-				return ;
+				return (E_INV_SHP);
 			}
 		}
 		++i;
 	}
 	data->map = ft_split(line, '\n');
-	free(line);
+	return (free(line), EXIT_SUCCESS);
 }
 
-int	check_char(char *av)
+int	check_char(t_data *data, char *av)
 {
 	char	*line;
 	int		i;
 
 	line = read_map(av);
 	if (!line)
-		return (0);
+	{
+		data->map = NULL;
+		return (E_INIT_MAP);
+	}
 	i = 0;
 	while (line[i])
 	{
@@ -112,10 +117,16 @@ int	check_char(char *av)
 int	check_err(t_data *data, char *av)
 {
 	int	id;
-	
-	id = 0;
-	get_map(data, av);
-	
-	
-	
+
+	if (check_extension(&av) != 0)
+		return (E_INV_FMT);
+	id = get_map(data, av);
+	if (id != 0)
+		return (id);
+	id = check_char(data, av);
+	if (id != 0)
+		return (id);
+	if (!data->map)
+		return (E_INIT_MAP);
+	return (EXIT_SUCCESS);
 }

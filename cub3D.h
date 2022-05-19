@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:17:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 18:21:43 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/20 01:27:15 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ enum e_errcode
 {
 	E_INV_FMT = 1,
 	E_INIT_MAP,
+	E_INV_SHP,
 	E_OPEN_MAP,
 	E_CHAR_PATT,
 	E_SPAWN_ERR,
@@ -88,6 +89,7 @@ typedef struct s_error
 static t_error const	g_error[] = {
 {.id = E_INV_FMT, .err_msg = "Error\nInvalid file format or extension\n"},
 {.id = E_INIT_MAP, .err_msg = "Error\nTroubles while reading or init Map\n"},
+{.id = E_INV_SHP, .err_msg = "Error\nMap has an invalid shape\n"},
 {.id = E_OPEN_MAP, .err_msg = "Error\nMap open\n"},
 {.id = E_CHAR_PATT, .err_msg = "Error\nFound an invalid char pattern\n"},
 {.id = E_SPAWN_ERR, .err_msg = "Error\nOnly one spawn please\n"},
@@ -106,8 +108,9 @@ void	init_struct(t_data *data);
 char	*read_map(char *av);
 
 int		check_extension(char **av);
-
-void	get_map(t_data *data, char *av);
+int		get_map(t_data *data, char *av);
+int		check_char(t_data *data, char *av);
+int		check_err(t_data *data, char *av);
 
 /*--------- E V E N T S ---------*/
 
