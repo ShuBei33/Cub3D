@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:17:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/20 01:27:15 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/20 22:01:08 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_data
 	void		*player;
 	double		pos_p_x;
 	double		pos_p_y;
+	int			max_linelen;
 	double		orient_p;
 }				t_data;
 
@@ -110,13 +111,16 @@ char	*read_map(char *av);
 int		check_extension(char **av);
 int		get_map(t_data *data, char *av);
 int		check_char(t_data *data, char *av);
-int		check_err(t_data *data, char *av);
+int		check_err(t_data *data, char **av);
+int		line_len(t_data *data, char *av);
+int		p_count(t_data *data);
 
 /*--------- E V E N T S ---------*/
 
 /*---------- U T I L S ----------*/
 
 void	print_err(enum e_errcode id);
+void	print_map(t_data *data);
 
 /*---------- C L E A N ----------*/
 

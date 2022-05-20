@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 16:38:05 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/20 22:00:51 by estoffel         ###   ########.fr       */
+/*   Created: 2022/05/20 21:22:44 by estoffel          #+#    #+#             */
+/*   Updated: 2022/05/20 22:03:43 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-#include <stdio.h>
 
-void	init_struct(t_data *data)
+int	p_count(t_data *data)
 {
-	ft_memset(data, 0, sizeof(*data));
-}
+	int		i;
+	int		j;
+	int		p_count;
 
-int	main(int ac, char **av)
-{
-	t_data	data;
-	int		ret;
-
-	init_struct(&data);
-	if (ac != 2)
+	p_count = 0;
+	i = 0;
+	while (data->map[i])
 	{
-		ft_putstr_fd("Error\nWrong number of arguments\n", 2);
-		return (0);
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
+				|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
+			{
+				++p_count;
+				data->pos_p_x = i;
+				data->pos_p_y = j;
+			}
+			++j;
+		}
+		++i;
 	}
-	ret = check_err(&data, av);
-	if (ret != 0)
-	{
-		print_err(ret);
-		return (free_map(&data), EXIT_FAILURE);
-	}
-	print_map(&data);
-	// init_mlx(&data);
-	free_map(&data);
-	return (0);
+	if (p_count != 1)
+		return (E_CHAR_PATT);
+	return (EXIT_SUCCESS);
 }

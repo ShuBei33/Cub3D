@@ -6,7 +6,7 @@
 #    By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 16:27:08 by estoffel          #+#    #+#              #
-#    Updated: 2022/05/17 23:39:33 by estoffel         ###   ########.fr        #
+#    Updated: 2022/05/20 21:51:01 by estoffel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,17 @@ NAME	=	cub3D
 
 CC		=	clang
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 ICLD	=	-Lmlx/ -lmlx -lXext -lX11
 
 SRC		=	\
-			check_map.c				\
-			free_all.c				\
-			main.c					\
-			utils.c					\
-			
+			check_map.c		\
+			errors.c		\
+			free_all.c		\
+			main.c			\
+			player.c		\
+			utils.c			\
 
 OBJ		=	$(addprefix ./src/,$(SRC:%.c=%.o))
 
