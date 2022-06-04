@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:17:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/20 22:01:08 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/04 03:16:58 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@
 # define UP 119
 # define ESC 65307
 
-# define NORTH "./textures/.xpm"
-# define SOUTH "./textures/.xpm"
-# define WEST "./textures/.xpm"
-# define EAST "./textures/.xpm"
-
 # define OR_NORTH 
 # define OR_SOUTH
 # define OR_WEST
@@ -43,6 +38,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <X11/keysym.h>
 # include "./mlx/mlx.h"
 # include "./libft/libft.h"
 
@@ -52,24 +49,34 @@
 
 typedef struct s_data	t_data;
 typedef struct s_error	t_error;
+typedef struct s_txtr	t_txtr;
 
 enum e_errcode
 {
 	E_INV_FMT = 1,
 	E_INIT_MAP,
+	E_LOAD_IMG,
+	E_LOAD_CLR,
+	E_CLONE,
 	E_INV_SHP,
 	E_OPEN_MAP,
 	E_CHAR_PATT,
 	E_SPAWN_ERR,
+	E_MLC_ERR,
 };
+
+typedef struct s_txtr
+{
+	void	*img;
+	int		height;
+	int		width;
+}				t_txtr;
 
 typedef struct s_data
 {
 	char		**map;
 	void		*mlx;
 	void		*win;
-	int			height;
-	int			width;
 	int			i;
 	int			j;
 	void		*wall;
@@ -79,6 +86,12 @@ typedef struct s_data
 	double		pos_p_y;
 	int			max_linelen;
 	double		orient_p;
+	t_txtr		no_txtr;
+	t_txtr		so_txtr;
+	t_txtr		we_txtr;
+	t_txtr		ea_txtr;
+	int			f_rgb;
+	int			c_rgb;
 }				t_data;
 
 typedef struct s_error
@@ -90,10 +103,14 @@ typedef struct s_error
 static t_error const	g_error[] = {
 {.id = E_INV_FMT, .err_msg = "Error\nInvalid file format or extension\n"},
 {.id = E_INIT_MAP, .err_msg = "Error\nTroubles while reading or init Map\n"},
+{.id = E_LOAD_IMG, .err_msg = "Error\nTroubles while loading or init image\n"},
+{.id = E_LOAD_CLR, .err_msg = "Error\nTroubles while loading or init color\n"},
+{.id = E_CLONE, .err_msg = "Error\nData already loaded\n"},
 {.id = E_INV_SHP, .err_msg = "Error\nMap has an invalid shape\n"},
 {.id = E_OPEN_MAP, .err_msg = "Error\nMap open\n"},
 {.id = E_CHAR_PATT, .err_msg = "Error\nFound an invalid char pattern\n"},
 {.id = E_SPAWN_ERR, .err_msg = "Error\nOnly one spawn please\n"},
+{.id = E_MLC_ERR, .err_msg = "Error\nMalloc failed\n"},
 };
 
 /*********************************/
@@ -106,24 +123,41 @@ void	init_struct(t_data *data);
 
 /*-------- P A R S I N G --------*/
 
-char	*read_map(char *av);
-
+int		checknprint(char *buf);
 int		check_extension(char **av);
 int		get_map(t_data *data, char *av);
+int		check_file(t_data *data, char *line);
+int		parse_txtr(t_data *data, char *name);
+int		parse_clr(int *rgb, char *path);
+int		create_trgb(int t, int r, int g, int b);
+int		load_data(t_data *data, char *name, int len);
 int		check_char(t_data *data, char *av);
 int		check_err(t_data *data, char **av);
 int		line_len(t_data *data, char *av);
 int		p_count(t_data *data);
 
+char	*read_file(char *av);
+
 /*--------- E V E N T S ---------*/
 
 /*---------- U T I L S ----------*/
+
+int		count_arg(char const *s, char c);
+int		is_full_digit(char *str);
+int		ft_strclen(char *str, char c);
+int		initmlc(void *ptr, const size_t size, const char *s);
+
+t_list	*newnode(char *line);
 
 void	print_err(enum e_errcode id);
 void	print_map(t_data *data);
 
 /*---------- C L E A N ----------*/
 
+int		release(void *ptr);
+
+void	delnode(t_list *node);
+void	lstclear(t_list *node);
 void	free_map(t_data *data);
 void	free_data(t_data *data);
 

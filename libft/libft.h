@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 18:36:56 by estoffel          #+#    #+#             */
-/*   Updated: 2021/12/22 18:40:20 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:25:13 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 
 typedef struct s_list
 {
-	int				nbr;
-	int				index;
+	char			*line;
 	void			*content;
 	struct s_list	*next;
 }					t_list;

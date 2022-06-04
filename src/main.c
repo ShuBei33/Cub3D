@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:38:05 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/20 22:00:51 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/04 01:09:34 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int ac, char **av)
 	t_data	data;
 	int		ret;
 
+	// (void)av;
 	init_struct(&data);
 	if (ac != 2)
 	{
@@ -35,8 +36,8 @@ int	main(int ac, char **av)
 		print_err(ret);
 		return (free_map(&data), EXIT_FAILURE);
 	}
-	print_map(&data);
+	// print_map(&data);
 	// init_mlx(&data);
-	free_map(&data);
+	// free_map(&data);
 	return (0);
 }

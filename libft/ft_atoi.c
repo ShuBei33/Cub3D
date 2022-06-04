@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:28:54 by estoffel          #+#    #+#             */
-/*   Updated: 2021/12/22 00:29:45 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/05/27 02:04:05 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int	ft_atoi(const char *str)
 {
-	long	res;
-	int		sign;
-	int		i;
+	long long	res;
+	int			sign;
+	int			i;
 
 	i = 0;
 	res = 0;

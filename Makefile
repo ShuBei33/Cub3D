@@ -6,7 +6,7 @@
 #    By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 16:27:08 by estoffel          #+#    #+#              #
-#    Updated: 2022/05/20 21:51:01 by estoffel         ###   ########.fr        #
+#    Updated: 2022/06/04 02:56:44 by estoffel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,14 @@ CFLAGS	=	-Wall -Wextra -Werror -g3
 ICLD	=	-Lmlx/ -lmlx -lXext -lX11
 
 SRC		=	\
+			black_magic.c	\
 			check_map.c		\
-			errors.c		\
 			free_all.c		\
 			main.c			\
-			player.c		\
+			parsing.c		\
+			pars_textures.c	\
 			utils.c			\
+			# player.c		\
 
 OBJ		=	$(addprefix ./src/,$(SRC:%.c=%.o))
 
