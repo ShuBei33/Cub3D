@@ -1,0 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   caca                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/18 18:18:53 by estoffel          #+#    #+#             */
+/*   Updated: 2022/06/18 18:18:55 by estoffel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+while (data->file[i + 1])
+			{
+				data->map_l = ft_strjoin(data->file[i], data->file[i + 1]);
+				if (!data->map_l)
+					return (release(&data->map_l), E_MLC_ERR);
+				data->max_linelen = ft_strclen(data->file[i], '\n');
+				if (data->max_linelen < ft_strclen(data->file[i + 1], '\n'))
+					data->max_linelen = ft_strclen(data->file[i + 1], '\n');
+				++i;
+			}
