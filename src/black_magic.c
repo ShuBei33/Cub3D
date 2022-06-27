@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 02:51:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/04 03:24:49 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:34:48 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	initmlc(void *ptr, const size_t size, const char *s)
 		return (-1);
 	}
 	ft_bzero(*(void **)ptr, size);
-	return (EXIT_SUCCESS); 
+	return (EXIT_SUCCESS);
 }
 
 int	release(void *ptr)

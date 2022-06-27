@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 22:41:57 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/04 02:50:17 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:38:48 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
-	
+
 int	parse_clr(int *rgb, char *path)
 {
 	char	**nbr;
@@ -45,9 +45,12 @@ int	parse_clr(int *rgb, char *path)
 int	load_data(t_data *data, char *name, int len)
 {
 	t_txtr	*any_txtr;
+	int i;
 
-	if (ft_strncmp("NO", name, len) == 0)
+	// printf("name = %s\n", name);
+	if ((i = ft_strncmp("NO", name, len)) == 0) {
 		any_txtr = &data->no_txtr;
+	}
 	else if (ft_strncmp("SO", name, len) == 0)
 		any_txtr = &data->so_txtr;
 	else if (ft_strncmp("WE", name, len) == 0)
@@ -60,12 +63,14 @@ int	load_data(t_data *data, char *name, int len)
 		return (parse_clr(&data->c_rgb, name + len));
 	else
 		return (E_CHAR_PATT);
+	// printf("pars txt reusit\n");
 	if (any_txtr->img)
 		return (E_CLONE);
-	any_txtr->img = mlx_xpm_file_to_image(data->mlx, name + len,
-			&any_txtr->width, &any_txtr->height);
-	if (!any_txtr->img)
-		return (E_LOAD_IMG);
+	// printf("if bizard passe\n");
+	// any_txtr->img = mlx_xpm_file_to_image(data->mlx, name + len,
+	// 		&any_txtr->width, &any_txtr->height);
+	// if (!any_txtr->img)
+	// 	return (clean_mlx(data), E_LOAD_IMG);
 	return (EXIT_SUCCESS);
 }
 
@@ -76,22 +81,14 @@ int	parse_txtr(t_data *data, char *name)
 	int const	len = ft_strlen(name);
 
 	i = 0;
-	j = 0;
-	while (data->map && data->map[i])
-	{
-		if (ft_isspace(data->map[i][j]) != 0)
-			return (E_CHAR_PATT);
-		if (ft_strncmp(data->map[i], name, len) == 0)
-		{
-			j = j + len;
-			if ((data->map[i][j] < 9 || data->map[i][j] > 13)
-				&& (data->map[i][j] != ' '))
-				return (E_CHAR_PATT);
-			while (ft_isspace(data->map[i][j]) != 0)
-				j++;
-			return (load_data(data, data->map[i], len));
-		}
-		++i;
-	}
-	return (E_CHAR_PATT);
+	j = len;
+	// printf("i = %d\nj = %d\n", i, j);
+	if ((data->file[i][j] < 9 || data->file[i][j] > 13)
+		&& (data->file[i][j] != ' '))
+		return (E_CHAR_PATT);
+	while (ft_isspace(data->file[i][j]) != 0)
+		j++;
+	if (data->file[i][j] == 0)
+		return (E_CHAR_PATT);
+	return (load_data(data, data->file[i], len));
 }

@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:36:38 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/17 18:14:33 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:33:04 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,25 @@ void	free_map(t_data *data)
 	i = 0;
 	while (data->map && data->map[i])
 		free(data->map[i++]);
-	free(data->map);
+	release(&data->map);
+}
+
+void	free_file(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->file && data->file[i])
+		free(data->file[i++]);
+	release(&data->file);
 }
 
 void	free_data(t_data *data)
 {
-	free(data->win);
-	free(data->mlx);
+	release(&data->win);
+	release(&data->mlx);
 	free_map(data);
+	free_file(data);
 }
 
 /*void	free_image(t_data *data)
@@ -36,40 +47,37 @@ void	free_data(t_data *data)
 	free(data->player);
 	free(data->collect);
 	free(data->exit);
-}
+}*/
 
 int	clean_mlx(t_data *data)
 {
-	if (data->wall != NULL)
-		mlx_destroy_image(data->mlx, data->wall);
-	if (data->player != NULL)
-		mlx_destroy_image(data->mlx, data->player);
-	if (data->collect != NULL)
-		mlx_destroy_image(data->mlx, data->collect);
-	if (data->exit != NULL)
-		mlx_destroy_image(data->mlx, data->exit);
-	if (data->ground != NULL)
-		mlx_destroy_image(data->mlx, data->ground);
+	if (data->no_txtr.img != NULL)
+		mlx_destroy_image(data->mlx, data->no_txtr.img);
+	if (data->so_txtr.img != NULL)
+		mlx_destroy_image(data->mlx, data->so_txtr.img);
+	if (data->we_txtr.img != NULL)
+		mlx_destroy_image(data->mlx, data->we_txtr.img);
+	if (data->ea_txtr.img != NULL)
+		mlx_destroy_image(data->mlx, data->ea_txtr.img);
 	if (data->win == NULL)
 		free(data->win);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	free_map(data);
-	ft_putstr_fd("Error: Oups, something went wrong with Images\n", 2);
+	print_err(E_INIT_MLX);
 	exit (EXIT_FAILURE);
 }
 
 int	destroy_mlx(t_data *data)
 {
-	mlx_destroy_image(data->mlx, data->wall);
-	mlx_destroy_image(data->mlx, data->player);
-	mlx_destroy_image(data->mlx, data->collect);
-	mlx_destroy_image(data->mlx, data->exit);
-	mlx_destroy_image(data->mlx, data->ground);
+	// mlx_destroy_image(data->mlx, data->no_txtr.img);
+	// mlx_destroy_image(data->mlx, data->so_txtr.img);
+	// mlx_destroy_image(data->mlx, data->we_txtr.img);
+	// mlx_destroy_image(data->mlx, data->ea_txtr.img);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
-	free(data->mlx);
+	release(&data->mlx);
 	free_map(data);
 	exit (EXIT_SUCCESS);
-}*/
+}

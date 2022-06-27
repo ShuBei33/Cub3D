@@ -6,12 +6,28 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:36:28 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/04 00:58:22 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/26 02:10:22 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 #include <stdio.h>
+
+int	check_char_str(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] && s[i] != '\n')
+	{
+		if (s[i] != '1' && s[i] != '0' && s[i] != 'N'
+			&& s[i] != 'S' && s[i] != 'E'
+			&& s[i] != 'W' && s[i] != ' ')
+			return (E_CHAR_PATT);
+		++i;
+	}
+	return (EXIT_SUCCESS);
+}
 
 int	ft_strclen(char *str, char c)
 {
@@ -21,6 +37,21 @@ int	ft_strclen(char *str, char c)
 	while (str && str[i] != c)
 		++i;
 	return (i);
+}
+
+char	*ft_strclencmp(char *s1, char *s2, char c)
+{
+	if (s1 && s2 && *s1 && *s2)
+	{
+		if (ft_strclen(s1, c) >= ft_strclen(s2, c))
+			return (s1);
+		else
+			return (s2);
+	}
+	if (*s1 && !*s2)
+		return (s1);
+	else
+		return (s2);
 }
 
 int	is_full_digit(char *str)
@@ -53,35 +84,4 @@ int	count_arg(char const *s, char c)
 			++i;
 	}
 	return (count);
-}
-
-void	print_err(enum e_errcode id)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < (sizeof(g_error) / sizeof(*g_error)))
-	{
-		if (id == g_error[i].id)
-		{
-			ft_putstr_fd(g_error[i].err_msg, 2);
-			break ;
-		}
-		++i;
-	}
-}
-
-void	print_map(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->map)
-	{
-		while (data->map[i])
-		{
-			printf("%s\n", data->map[i]);
-			i++;
-		}
-	}
 }

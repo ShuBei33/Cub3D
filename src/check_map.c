@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:28:32 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/04 03:12:15 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/25 23:26:01 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*read_file(char *av)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (!bytes_read || bytes_read == -1)
-			break;
+			break ;
 		buf[bytes_read] = '\0';
 		if (checknprint(buf) != 0)
 			return (NULL);
@@ -75,37 +75,26 @@ char	*read_file(char *av)
 	return (close(fd), line);
 }
 
-int	get_map(t_data *data, char *av)
+int	get_file(t_data *data, char *av)
 {
 	char	*line;
 	int		ret;
-	// int		i;
 
-	
 	line = read_file(av);
 	if (!line)
-		return (free(line), E_INIT_MAP);
-	else
-	{
-		data->map = &line;
-		printf("%s\n", line);
-	}
-	ret = check_file(data, line); 
+		return (release(&line), E_INIT_MAP);
+	ret = go_to_map(data, line);
 	if (ret != 0)
-		return (free(line), ret);
-	// i = 0;
-	// while (line[i])
-	// {
-	// 	if (line[i] == '\n')
-	// 	{
-	// 		if (line[i + 1] == '\n')
-	// 		{
-	// 			data->map = NULL;
-	// 			return (free(line), E_INV_SHP);
-	// 		}
-	// 	}
-	// 	++i;
-	// }
-	// data->map = ft_split(line, '\n');
-	return (free(line), EXIT_SUCCESS);
+		return (print_err(ret));
+	data->file = ft_split(line, '\n');
+	// for (int k = 0; data->file[k]; k++)
+	// 	printf("%s\n", data->file[k]);
+	// printf("\n");
+	if (!data->file)
+		return (free_data(data), free(line), E_MLC_ERR);
+	free(line);
+	ret = check_file(data);
+	if (ret < 0)
+		return (ret);
+	return (parse_map(data));
 }
