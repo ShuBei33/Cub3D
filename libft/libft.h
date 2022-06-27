@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 18:36:56 by estoffel          #+#    #+#             */
-/*   Updated: 2022/05/23 19:25:13 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/06/22 23:50:19 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_uitoa_base(unsigned int n, char *base);
 
+char	**ft_only_split(char const *s, char c);
 char	**ft_split(char const *s, char c);
 
 int		ft_atoi(const char *str);

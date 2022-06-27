@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_only_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/12 19:24:20 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/09 15:44:26 by estoffel         ###   ########.fr       */
+/*   Created: 2022/06/23 22:09:54 by estoffel          #+#    #+#             */
+/*   Updated: 2022/06/24 00:38:16 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	released(void *ptr)
+// needs to be fixed
+
+static int	releasing(void *ptr)
 {
 	if (*(void **)ptr)
 	{
 		free(*(void **)ptr);
 		*(void **)ptr = NULL;
-		return (EXIT_SUCCESS);
+		return (0);
 	}
 	return (-1);
 }
@@ -30,7 +32,7 @@ static char	**ft_nomalloc(char **output, size_t i)
 		--i;
 		free(output[i]);
 	}
-	released(&output);
+	releasing(&output);
 	return (NULL);
 }
 
@@ -41,15 +43,13 @@ static size_t	count_word(char const *s, char c)
 
 	count = 0;
 	i = 0;
-	while (s[i] && s[i] == c)
-		++i;
-	while (s[i])
+	while (s && s[i])
 	{
-		++count;
-		while (s[i] && s[i] != c)
-			++i;
 		while (s[i] && s[i] == c)
+		{
+			++count;
 			++i;
+		}
 	}
 	return (count);
 }
@@ -59,6 +59,8 @@ static size_t	count_len(char const *s, char c)
 	size_t	len;
 
 	len = 0;
+	if (*s && *s == c)
+		return (1);
 	while (*s && *s != c)
 	{
 		++len;
@@ -67,11 +69,12 @@ static size_t	count_len(char const *s, char c)
 	return (len);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_only_split(char const *s, char c)
 {
 	char	**output;
 	char	*minitab;
 	size_t	count_w;
+	size_t	cnt_len;
 	size_t	i;
 
 	if (!s)
@@ -83,15 +86,13 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	while (i < count_w)
 	{
-		while (*s && *s == c)
-			++s;
-		minitab = ft_strndup(s, count_len(s, c));
+		cnt_len = count_len(s, c);
+		minitab = ft_strndup(s, cnt_len);
 		if (!minitab)
 			return (ft_nomalloc(output, i));
 		output[i++] = minitab;
-		while (*s && *s != c)
-			++s;
+		s += (cnt_len + 1);
 	}
-	output[i] = NULL;
+	output[i] = '\0';
 	return (output);
 }

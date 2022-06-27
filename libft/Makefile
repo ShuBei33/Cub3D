@@ -6,7 +6,7 @@
 #    By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/22 15:54:32 by estoffel          #+#    #+#              #
-#    Updated: 2021/12/20 16:16:07 by estoffel         ###   ########.fr        #
+#    Updated: 2022/06/22 23:50:48 by estoffel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC		=	\
 			ft_memcpy.c			\
 			ft_memmove.c		\
 			ft_memset.c			\
+			ft_only_split.c		\
 			ft_putchar_fd.c		\
 			ft_putendl_fd.c		\
 			ft_putnbr_fd.c		\
