@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:17:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/21 19:56:14 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/05 11:45:10 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,11 @@ int		check_mlx(t_data *data);
 int		check_extension(char **av);
 int		get_file(t_data *data, char *av);
 int		check_file(t_data *data);
-int		parse_txtr(t_data *data, char *name);
+int		parse_txtr(t_data *data, char *linetxtr, char *name);
 int		parse_clr(int *rgb, char *path);
 int		parse_map(t_data *data);
 int		create_trgb(int t, int r, int g, int b);
-int		load_data(t_data *data, char *name, int len);
+int		load_data(t_data *data, char *path, char *name);
 int		check_char(t_data *data);
 int		check_split(t_data *data);
 int		check_err(t_data *data, char **av);
@@ -159,6 +159,8 @@ int		ft_strclen(char *str, char c);
 int		initmlc(void *ptr, const size_t size, const char *s);
 
 char	*ft_strclencmp(char *s1, char *s2, char c);
+
+char	**ft_onlysplit(char const *s, char c);
 
 t_list	*newnode(char *line);
 

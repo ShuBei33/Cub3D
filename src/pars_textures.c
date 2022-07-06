@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 22:41:57 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/22 17:38:48 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/05 11:52:28 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,53 +42,49 @@ int	parse_clr(int *rgb, char *path)
 	return (EXIT_SUCCESS);
 }
 
-int	load_data(t_data *data, char *name, int len)
+int	load_data(t_data *data, char *path, char *name)
 {
-	t_txtr	*any_txtr;
-	int i;
-
-	// printf("name = %s\n", name);
-	if ((i = ft_strncmp("NO", name, len)) == 0) {
-		any_txtr = &data->no_txtr;
+	if (ft_strcmp(name, "NO") == 0) 
+	{
+		data->no_txtr.img = path;
+		// printf("any_txtr = %s\n", (char *)data->no_txtr.img);
 	}
-	else if (ft_strncmp("SO", name, len) == 0)
-		any_txtr = &data->so_txtr;
-	else if (ft_strncmp("WE", name, len) == 0)
-		any_txtr = &data->we_txtr;
-	else if (ft_strncmp("EA", name, len) == 0)
-		any_txtr = &data->ea_txtr;
-	else if (ft_strncmp("F", name, len) == 0)
-		return (parse_clr(&data->f_rgb, name + len));
-	else if (ft_strncmp("C", name, len) == 0)
-		return (parse_clr(&data->c_rgb, name + len));
+	else if (ft_strcmp(name, "SO") == 0)
+		data->so_txtr.img = path;
+	else if (ft_strcmp(name, "WE") == 0)
+		data->we_txtr.img = path;
+	else if (ft_strcmp(name, "EA") == 0)
+		data->ea_txtr.img = path;
+	else if (ft_strcmp(name, "F") == 0)
+		parse_clr(&data->f_rgb, path);
+	else if (ft_strcmp(name, "C") == 0)
+		parse_clr(&data->c_rgb, path);
 	else
 		return (E_CHAR_PATT);
-	// printf("pars txt reusit\n");
-	if (any_txtr->img)
-		return (E_CLONE);
-	// printf("if bizard passe\n");
+	// if (data->so_txtr.img || data->we_txtr.img || data->ea_txtr.img
+	// 	|| data->no_txtr.img || data->f_rgb || data->c_rgb)
+	// 	return (E_CLONE);
 	// any_txtr->img = mlx_xpm_file_to_image(data->mlx, name + len,
 	// 		&any_txtr->width, &any_txtr->height);
-	// if (!any_txtr->img)
-	// 	return (clean_mlx(data), E_LOAD_IMG);
+	if (!data->so_txtr.img || !data->we_txtr.img || !data->ea_txtr.img
+		|| !data->no_txtr.img || !data->f_rgb || !data->c_rgb)
+		return (clean_mlx(data), E_LOAD_IMG);
 	return (EXIT_SUCCESS);
 }
 
-int	parse_txtr(t_data *data, char *name)
+int	parse_txtr(t_data *data, char *linetxtr, char *name)
 {
-	int			i;
-	int			j;
 	int const	len = ft_strlen(name);
 
-	i = 0;
-	j = len;
-	// printf("i = %d\nj = %d\n", i, j);
-	if ((data->file[i][j] < 9 || data->file[i][j] > 13)
-		&& (data->file[i][j] != ' '))
+	linetxtr += len;
+	// printf("i = %d\n", i);
+	if ((*linetxtr < 9 || *linetxtr > 13)
+		&& (*linetxtr != ' '))
 		return (E_CHAR_PATT);
-	while (ft_isspace(data->file[i][j]) != 0)
-		j++;
-	if (data->file[i][j] == 0)
+	while (ft_isspace(*linetxtr) != 0)
+		linetxtr++;
+	if (*linetxtr == 0)
 		return (E_CHAR_PATT);
-	return (load_data(data, data->file[i], len));
+	// printf("linetxtr = [%s]\n", linetxtr);
+	return (load_data(data, linetxtr, name));
 }

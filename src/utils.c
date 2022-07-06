@@ -6,35 +6,19 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:36:28 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/26 02:10:22 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/05 07:39:23 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 #include <stdio.h>
 
-int	check_char_str(char *s)
-{
-	int i;
-
-	i = 0;
-	while (s[i] && s[i] != '\n')
-	{
-		if (s[i] != '1' && s[i] != '0' && s[i] != 'N'
-			&& s[i] != 'S' && s[i] != 'E'
-			&& s[i] != 'W' && s[i] != ' ')
-			return (E_CHAR_PATT);
-		++i;
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	ft_strclen(char *str, char c)
 {
 	int	i;
 
 	i = 0;
-	while (str && str[i] != c)
+	while (str[i] && str[i] != c)
 		++i;
 	return (i);
 }

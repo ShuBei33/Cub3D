@@ -6,7 +6,7 @@
 #    By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/16 16:27:08 by estoffel          #+#    #+#              #
-#    Updated: 2022/06/17 20:22:59 by estoffel         ###   ########.fr        #
+#    Updated: 2022/07/05 07:49:20 by estoffel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC		=	\
 			black_magic.c	\
 			check_map.c		\
 			free_all.c		\
+			ft_onlysplit.c	\
 			main.c			\
 			pars_map.c		\
 			pars_textures.c	\
