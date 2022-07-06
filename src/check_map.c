@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 23:28:32 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/05 11:15:00 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:15:47 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*read_file(char *av)
 	buf[0] = 0;
 	fd = open(av, O_RDONLY);
 	if (fd < 0)
-		return (0);
+		return (print_err(E_OP_F), NULL);
 	bytes_read = 1;
 	line = NULL;
 	while (bytes_read > 0)
@@ -65,15 +65,9 @@ int	check_file(t_data *data)
 	int	j;
 
 	i = 0;
-	// printf("Try to print full file :\n");
-	// for (int k = 0; data->file[k]; k++)
-	// 	printf("%s\n", data->file[k]);
-	// printf("\n");
-	// printf("data->file[i] bf while %s\n", data->file[i]);
-	while (data->file[i] && (data->no_txtr.img == NULL
-			|| data->so_txtr.img == NULL || data->we_txtr.img == NULL
-			|| data->ea_txtr.img == NULL || data->f_rgb == 0
-			|| data->c_rgb == 0))
+	while (data->no_txtr.img == NULL || data->so_txtr.img == NULL
+			|| data->we_txtr.img == NULL || data->ea_txtr.img == NULL
+			|| data->f_rgb == -1 || data->c_rgb == -1)
 	{
 		j = 0;
 		while (data->file[i][j] == '\n')
@@ -81,10 +75,7 @@ int	check_file(t_data *data)
 		while (data->file[i][j] != '\n' && ft_isspace(data->file[i][j]) != 0)
 			++j;
 		if (!ft_strncmp(data->file[i], "NO", 2))
-		{
-			printf("ici parse NO\n");
 			parse_txtr(data, data->file[i], "NO");
-		}
 		else if (!ft_strncmp(data->file[i], "SO", 2))
 			parse_txtr(data, data->file[i], "SO");
 		else if (!ft_strncmp(data->file[i], "WE", 2))
@@ -96,13 +87,10 @@ int	check_file(t_data *data)
 		else if (!ft_strncmp(data->file[i], "C", 1))
 			parse_txtr(data, data->file[i], "C");
 		else
-			return (printf("pb ici Check_file\n"), E_CHAR_PATT);
-		// printf("i = %d\n", i);
-		// printf("data->file[i] = %s\n", data->file[i]);
-		// print_struct(data);
+			return (E_CHAR_PATT);
 		i++;
 	}
-	data->i = i;
+	data->i = i + 1;
 	return (EXIT_SUCCESS);
 }
 
@@ -113,10 +101,7 @@ int	get_file(t_data *data, char *av)
 	line = read_file(av);
 	if (!line)
 		return (release(&line), E_INIT_MAP);
-	data->file = ft_onlysplit(line, '\n');
-	// for (int k = 0; data->file[k]; k++)
-	// 	printf("[%s]\n", data->file[k]);
-	// printf("\n");
+	data->file = ft_onlysplit(data, line, '\n');
 	if (!data->file)
 		return (free_data(data), free(line), E_MLC_ERR);
 	release(&line);

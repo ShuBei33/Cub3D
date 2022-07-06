@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:38:05 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/05 10:17:11 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:59:41 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void	init_struct(t_data *data)
 {
 	ft_memset(data, 0, sizeof(*data));
+	data->f_rgb = -1;
+	data->c_rgb = -1;
 }
 
 int	init_mlx(t_data *data)
@@ -56,8 +58,9 @@ int	main(int ac, char **av)
 	// 	return (print_err(E_INIT_MLX), -1);
 	// print_struct(&data);
 	ret = check_err(&data, av);
+	// printf("ret = %d\n", ret);
 	if (ret)
-		return (print_err(ret), free_map(&data), -1);
+		return (print_err(ret), free_file(&data), free_map(&data), -1);
 	// if (check_mlx(&data) != 0)
 	// 	clean_mlx(&data);
 	// mlx_hook(data.win, CLOSE, 0, &destroy_mlx, &data);

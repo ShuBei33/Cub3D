@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:36:28 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/05 07:39:23 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:25:30 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ int	is_full_digit(char *str)
 	int	i;
 
 	i = 0;
-	while (str && str[i])
+	while (str[i])
 	{
 		if (ft_isdigit(str[i]) == 0)
 			return (E_CHAR_PATT);
 		++i;
 	}
+	printf("succes\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -59,7 +60,7 @@ int	count_arg(char const *s, char c)
 
 	count = 0;
 	i = 0;
-	while (s[i] != '\n')
+	while (s[i] && s[i] != '\n')
 	{
 		++count;
 		while (s[i] && s[i] != c)

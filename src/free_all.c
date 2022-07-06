@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 20:36:38 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/05 08:26:52 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:16:54 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ void	free_data(t_data *data)
 
 int	clean_mlx(t_data *data)
 {
-	if (data->no_txtr.img != NULL)
-		mlx_destroy_image(data->mlx, data->no_txtr.img);
-	if (data->so_txtr.img != NULL)
-		mlx_destroy_image(data->mlx, data->so_txtr.img);
-	if (data->we_txtr.img != NULL)
-		mlx_destroy_image(data->mlx, data->we_txtr.img);
-	if (data->ea_txtr.img != NULL)
-		mlx_destroy_image(data->mlx, data->ea_txtr.img);
-	if (data->win == NULL)
-		free(data->win);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
+	// if (data->no_txtr.img != NULL)
+	// 	mlx_destroy_image(data->mlx, data->no_txtr.img);
+	// if (data->so_txtr.img != NULL)
+	// 	mlx_destroy_image(data->mlx, data->so_txtr.img);
+	// if (data->we_txtr.img != NULL)
+	// 	mlx_destroy_image(data->mlx, data->we_txtr.img);
+	// if (data->ea_txtr.img != NULL)
+	// 	mlx_destroy_image(data->mlx, data->ea_txtr.img);
+	// if (data->win == NULL)
+	// 	free(data->win);
+	// mlx_destroy_window(data->mlx, data->win);
+	// mlx_destroy_display(data->mlx);
+	// free(data->mlx);
 	free_map(data);
 	print_err(E_INIT_MLX);
 	exit (EXIT_FAILURE);

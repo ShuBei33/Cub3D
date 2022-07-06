@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 21:01:38 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/05 08:04:13 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:26:36 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_err(t_data *data, char **av)
 	if (check_extension(av) != 0)
 		return (E_INV_FMT);
 	id = get_file(data, av[1]);
+	printf("ret = %d\n", id);
 	if (id != 0)
 		return (id);
 	return (EXIT_SUCCESS);

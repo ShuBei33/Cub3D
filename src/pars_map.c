@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 05:14:15 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/05 10:13:58 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:43:56 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	parse_map(t_data *data)
 	j = 0;
 	while (data->file[data->i] && data->file[data->i][j] == '\n')
 		++data->i;
-	if (data->file[data->i][j] == '\0')
+	if (data->file[data->i] == NULL)
 		return (E_NO_DATA);
 	tmp = data->i;
 	while (data->file[data->i])
@@ -71,5 +71,6 @@ int	parse_map(t_data *data)
 		data->nb_line++;
 		data->i++;
 	}
+	print_struct(data);
 	return (EXIT_SUCCESS);
 }

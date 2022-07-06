@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 16:17:22 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/05 11:45:10 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:15:37 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_txtr	t_txtr;
 enum e_errcode
 {
 	E_INV_FMT = 1,
+	E_OP_F,
 	E_INIT_MAP,
 	E_INIT_MLX,
 	E_LOAD_IMG,
@@ -106,6 +107,7 @@ typedef struct s_error
 
 static t_error const	g_error[] = {
 {.id = E_INV_FMT, .err_msg = "Error\nInvalid file format or extension\n"},
+{.id = E_OP_F, .err_msg = "Error\nOpen failed\n"},
 {.id = E_INIT_MAP, .err_msg = "Error\nTroubles while reading or init Map\n"},
 {.id = E_INIT_MLX, .err_msg = "Error\nMlx initializaton failed\n"},
 {.id = E_LOAD_IMG, .err_msg = "Error\nTroubles while loading or init image\n"},
@@ -160,7 +162,7 @@ int		initmlc(void *ptr, const size_t size, const char *s);
 
 char	*ft_strclencmp(char *s1, char *s2, char c);
 
-char	**ft_onlysplit(char const *s, char c);
+char	**ft_onlysplit(t_data *data, char const *s, char c);
 
 t_list	*newnode(char *line);
 
