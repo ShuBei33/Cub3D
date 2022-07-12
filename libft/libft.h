@@ -6,7 +6,7 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 18:36:56 by estoffel          #+#    #+#             */
-/*   Updated: 2022/06/22 23:50:19 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/08 00:49:00 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		ft_isspace(int c);
 int		ft_lstsize(t_list *lst);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
@@ -58,7 +59,6 @@ int		ft_toupper(int c);
 long	ft_atol(const char *str);
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 t_list	*ft_lstlast(t_list *lst);

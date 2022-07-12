@@ -6,9 +6,11 @@
 /*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 18:57:24 by estoffel          #+#    #+#             */
-/*   Updated: 2021/08/03 17:58:28 by estoffel         ###   ########.fr       */
+/*   Updated: 2022/07/09 17:55:45 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*if return 1 it means there is a space*/
 
 int	ft_isspace(int c)
 {
