@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lzaccome <lzaccome@student.42.fr>          +#+  +:+       +#+        */
+/*   By: estoffel <estoffel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 22:41:57 by estoffel          #+#    #+#             */
-/*   Updated: 2022/07/11 03:09:25 by lzaccome         ###   ########.fr       */
+/*   Updated: 2022/07/28 06:24:24 by estoffel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_clr(int *rgb, char *path, int i, int j)
 	while (nbr[i] && nbr[i][j])
 	{
 		j = 0;
-		if ((is_full_digit(nbr[i]) != 0 && ft_isspace(nbr[i][j++]) != 0)
+		if ((is_full_digit(nbr[i]) != 0 || ft_isspace(nbr[i][j++]) != 0)
 			|| ft_strlen(nbr[i]) > 11)
 			return (freetab(nbr), E_CHAR_PATT);
 		if (ft_atoi(nbr[i]) > 255 || ft_atoi(nbr[i]) < 0)
